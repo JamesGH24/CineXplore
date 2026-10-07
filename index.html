@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CineXplore</title>
+  <meta name="description" content="CineXplore movie and TV series information system powered by TMDB." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#home" data-page="home" aria-label="CineXplore Home">
+      <span class="brand-mark">C</span>
+      <span>Cine<span>Xplore</span></span>
+    </a>
+
+    <nav class="main-nav" aria-label="Primary navigation">
+      <button class="nav-link active" data-page="home">Home</button>
+      <button class="nav-link" data-page="movies">Movies</button>
+      <button class="nav-link" data-page="series">Series</button>
+      <button class="nav-link" data-page="favorites">Favorites <span id="favoriteBadge" class="nav-badge hidden">0</span></button>
+      <button class="nav-link" data-page="about">About</button>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-button" id="globalSearchButton" title="Focus search" aria-label="Focus search">⌕</button>
+      <div class="user-avatar" title="Demo profile">CJE</div>
+    </div>
+  </header>
+
+  <main>
+    <section id="page-home" class="page active-page">
+      <div id="homeHero" class="hero">
+        <div class="hero-backdrop"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div class="eyebrow">VOILA, EXPLORE YOUR NEXT FAVORITE</div>
+          <h1>Discover films<br />worth <span>remembering.</span></h1>
+          <p id="heroOverview" class="hero-copy">Explore the latest movies and series, discover new favorites, and keep track of everything worth watching.</p>
+          <div class="hero-search">
+            <input id="homeSearchInput" type="text" placeholder="Search movies, actors, TV shows..." autocomplete="off" />
+            <button id="homeSearchButton" class="primary-button">Search</button>
+          </div>
+          <div class="hero-hint">Try a title like “Avengers”, “Dune”, or “Breaking Bad”.</div>
+        </div>
+
+        <button id="heroDetailButton" class="featured-card" aria-label="View featured title">
+          <div class="featured-ribbon">FEATURED</div>
+          <img id="heroPoster" src="" alt="Featured title poster" />
+          <div class="featured-info">
+            <h3 id="heroTitle">Loading...</h3>
+            <div class="meta-row"><span id="heroRating">★ --</span><span id="heroDate">----</span></div>
+            <p id="heroMiniOverview">Loading featured title...</p>
+            <span class="text-link">Explore more →</span>
+          </div>
+        </button>
+      </div>
+
+      <div class="page-inner">
+        <section class="content-section">
+          <div class="section-heading">
+            <div><div class="section-kicker">AUDIENCE FAVORITES</div><h2>Popular Movies</h2></div>
+            <button class="text-button" data-page="movies">View all →</button>
+          </div>
+          <div id="homePopularGrid" class="movie-grid compact-grid"></div>
+        </section>
+
+        <section class="content-section">
+          <div class="section-heading">
+            <div><div class="section-kicker">IN CINEMAS & NOW</div><h2>Now Playing</h2></div>
+            <button class="text-button" data-page="movies">View all →</button>
+          </div>
+          <div id="homeNowPlayingGrid" class="movie-grid compact-grid"></div>
+        </section>
+      </div>
+    </section>
+
+    <section id="page-movies" class="page">
+      <div class="page-inner list-page">
+        <div class="page-top">
+          <div><div class="section-kicker">EXPLORE THE CATALOG</div><h2>Movies</h2><p class="muted">Search, filter, and discover films from the TMDB catalog.</p></div>
+        </div>
+
+        <div class="catalog-search">
+          <input id="movieSearchInput" type="text" placeholder="Search movie titles, actors, or keywords..." autocomplete="off" />
+          <button id="movieSearchButton" class="primary-button">Search</button>
+        </div>
+
+        <div class="filters">
+          <label><span>GENRE</span><select id="movieGenre"></select></label>
+          <label><span>RELEASE YEAR</span><select id="movieYear"><option value="">Any year</option></select></label>
+          <label><span>RATING</span><select id="movieRating"><option value="">Any rating</option><option value="8">8.0+</option><option value="7">7.0+</option><option value="6">6.0+</option></select></label>
+          <label><span>SORT BY</span><select id="movieSort"><option value="popularity.desc">Most popular</option><option value="vote_average.desc">Highest rated</option><option value="primary_release_date.desc">Newest releases</option><option value="revenue.desc">Highest revenue</option></select></label>
+        </div>
+
+        <div class="results-bar"><span id="movieResultsLabel">Popular movies</span><span id="movieResultsCount" class="muted-small"></span></div>
+        <div id="movieGrid" class="movie-grid"></div>
+        <button id="movieLoadMore" class="outline-button hidden">Load more movies</button>
+      </div>
+    </section>
+
+    <section id="page-series" class="page">
+      <div class="page-inner list-page">
+        <div class="page-top">
+          <div><div class="section-kicker">EXPLORE THE TV CATALOG</div><h2>TV Series</h2><p class="muted">Find popular shows, airing series, and your next binge.</p></div>
+        </div>
+
+        <div class="catalog-search">
+          <input id="seriesSearchInput" type="text" placeholder="Search TV series titles..." autocomplete="off" />
+          <button id="seriesSearchButton" class="primary-button">Search</button>
+        </div>
+
+        <div class="filters">
+          <label><span>GENRE</span><select id="seriesGenre"></select></label>
+          <label><span>FIRST AIR YEAR</span><select id="seriesYear"><option value="">Any year</option></select></label>
+          <label><span>RATING</span><select id="seriesRating"><option value="">Any rating</option><option value="8">8.0+</option><option value="7">7.0+</option><option value="6">6.0+</option></select></label>
+          <label><span>SORT BY</span><select id="seriesSort"><option value="popularity.desc">Most popular</option><option value="vote_average.desc">Highest rated</option><option value="first_air_date.desc">Newest first</option></select></label>
+        </div>
+
+        <div class="results-bar"><span id="seriesResultsLabel">Popular TV series</span><span id="seriesResultsCount" class="muted-small"></span></div>
+        <div id="seriesGrid" class="movie-grid"></div>
+        <button id="seriesLoadMore" class="outline-button hidden">Load more series</button>
+      </div>
+    </section>
+
+    <section id="page-favorites" class="page">
+      <div class="page-inner list-page favorites-page">
+        <div class="page-top">
+          <div><div class="section-kicker">YOUR PERSONAL COLLECTION</div><h2>Favorites</h2><p class="muted">Keep your saved movies and TV series in one place.</p></div>
+          <span id="favoritesStatus" class="muted-small"></span>
+        </div>
+        <div id="favoritesEmpty" class="empty-state hidden">
+          <div class="empty-icon">♡</div><h3>No favorites yet</h3><p>Tap the heart on any title to save it here.</p><button class="primary-button" data-page="movies">Browse movies</button>
+        </div>
+        <div id="favoritesGrid" class="movie-grid"></div>
+      </div>
+    </section>
+
+    <section id="page-about" class="page">
+      <div class="page-inner about-page">
+        <div class="section-kicker">MADE FOR MOVIE PEOPLE</div>
+        <h2 class="about-title">Less searching.<br /><span>More watching.</span></h2>
+        <p class="about-intro">CineXplore brings the world of cinema into one beautifully simple place. Explore films, discover new favorites, and keep track of every title that moves you.</p>
+        <div class="about-columns">
+          <article><span class="about-number">01</span><h3>Discover</h3><p>Explore popular movies and TV series using live catalog data from TMDB.</p></article>
+          <article><span class="about-number">02</span><h3>Decide</h3><p>Check ratings, release dates, genres, cast details, and short overviews before you watch.</p></article>
+          <article><span class="about-number">03</span><h3>Remember</h3><p>Save your favorite titles locally so your personal collection stays close at hand.</p></article>
+        </div>
+        <button class="primary-button" data-page="movies">Start exploring →</button>
+      </div>
+    </section>
+  </main>
+
+  <div id="detailsModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-panel">
+      <button class="modal-close" id="closeModal" aria-label="Close details">×</button>
+      <div class="modal-hero">
+        <img id="detailBackdrop" src="" alt="" /><div class="modal-gradient"></div>
+        <div class="modal-hero-info"><div id="detailType" class="section-kicker">MOVIE</div><h2 id="detailTitle">Title</h2><div id="detailMeta" class="meta-row"></div></div>
+      </div>
+      <div class="modal-body">
+        <img id="detailPoster" class="detail-poster" src="" alt="" />
+        <div class="detail-copy">
+          <div class="detail-actions"><button id="detailFavoriteButton" class="primary-button">♡ Add to favorites</button></div>
+          <p id="detailOverview" class="detail-overview"></p>
+          <div class="detail-grid">
+            <div><span>Genres</span><strong id="detailGenres">—</strong></div>
+            <div><span>Director / Creator</span><strong id="detailCreator">—</strong></div>
+            <div><span>Runtime / Seasons</span><strong id="detailRuntime">—</strong></div>
+          </div>
+          <div class="cast-block"><div class="section-heading slim"><h3>Top Cast</h3></div><div id="castList" class="cast-list"></div></div>
+          <div id="seasonBlock" class="season-block hidden">
+            <div class="section-heading slim"><h3>Seasons & Episodes</h3><select id="seasonSelect"></select></div>
+            <div id="episodeList" class="episode-list"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <footer class="site-footer">
+    <div class="brand small-brand"><span class="brand-mark">C</span><span>Cine<span>Xplore</span></span></div>
+    <p>This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
+    <span>© 2026 CineXplore</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
