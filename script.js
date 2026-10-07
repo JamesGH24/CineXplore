@@ -1,5 +1,5 @@
 /* CineXplore - HTML/CSS/JS frontend using TMDB API. Replace the token below. */
-const TMDB_TOKEN = "PASTE_YOUR_TMDB_API_READ_ACCESS_TOKEN_HERE";
+const TMDB_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0ZmVkY2M3OGZiNDk4ZWNiMTc0ZjliNjQyNjEyMWE3NiIsIm5iZiI6MTc5MTM4Mzc1NS4wNzIsInN1YiI6IjZhYzY1OGNiNWFmZmEwOWE2Yjk1ZTMxMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.qsEdy2DupSifJkqWLzjDAUOqDj1Lhx0qFzPWa8eGblE";
 const API_BASE = "https://api.themoviedb.org/3";
 const IMAGE_BASE = "https://image.tmdb.org/t/p/";
 const POSTER_SIZE = "w500";
